@@ -1,0 +1,13 @@
+{
+  "name": "big-soccer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "dependencies": {
+    "pixi.js": "^5.2.4"
+  }
+}
