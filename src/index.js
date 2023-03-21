@@ -34,3 +34,4 @@ tree2.x = 525
 tree2.y = 310
 tree2.interactive = false
 app.stage.addChild(tree2);
+
