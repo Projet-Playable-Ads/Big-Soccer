@@ -29,5 +29,16 @@ export default {
         hints: false,
         maxEntrypointSize: 512000,
         maxAssetSize: 512000
+    }, 
+    module: {
+        rules: [
+            {
+              test: /\.css$/,
+              use: [
+                'style-loader',
+                'css-loader'
+              ]
+            }
+        ]
     }
 }
