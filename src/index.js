@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 const app = new PIXI.Application();
+import { createUI } from "./ui.js";
 
 document.body.appendChild(app.view);
 
@@ -88,3 +89,15 @@ function setup() {
 }
 
 
+
+// ------------------------------------------------ Ballon ----------------------------------------------------------------------------
+
+const ballon = Sprite.from('assets/ballon.png');
+ballon.anchor.set(0.5);
+ballon.width = 65;
+ballon.height = 65;
+ballon.x = 340;
+ballon.y = 400;
+app.stage.addChild(ballon);
+
+document.body.append(...createUI())
