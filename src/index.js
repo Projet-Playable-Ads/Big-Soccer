@@ -1,33 +1,36 @@
-import * as PIXI from 'pixi.js';
+import { Application, Sprite, Container } from "pixi.js";
 
-// The application will create a renderer using WebGL, if possible,
-// with a fallback to a canvas render. It will also setup the ticker
-// and the root stage PIXI.Container
-const app = new PIXI.Application();
-
-// The application will create a canvas element for you that you
-// can then insert into the DOM
+var app = new Application({background: '#ffffff'});
 document.body.appendChild(app.view);
 
-// load the texture we need
-app.loader.add('bunny', 'assets/bunny.png').load((loader, resources) => {
-    // This creates a texture from a 'bunny.png' image
-    const bunny = new PIXI.Sprite(resources.bunny.texture);
 
-    // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
+// ------------------------------------------------ Container -------------------------------------------------------------------------
+const container = new Container();
+app.stage.addChild(container);
 
-    // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
+// ------------------------------------------------ Terrain ---------------------------------------------------------------------------
 
-    // Add the bunny to the scene we are building
-    app.stage.addChild(bunny);
+const terrain = Sprite.from('assets/terrain.jpg');
+app.stage.addChild(terrain);
 
-    // Listen for frame updates
-    app.ticker.add(() => {
-         // each frame we spin the bunny around a bit
-        bunny.rotation += 0.01;
-    });
-});
+
+
+// ------------------------------------------------- Trees ----------------------------------------------------------------------------
+const tree1 = Sprite.from('assets/tree.png');
+tree1.anchor.set(0.5);
+tree1.width = 150
+tree1.height = 150
+tree1.x = 175
+tree1.y = 310
+tree1.interactive = false
+app.stage.addChild(tree1);
+
+
+const tree2 = Sprite.from('assets/tree.png');
+tree2.anchor.set(0.5);
+tree2.width = 150
+tree2.height = 150
+tree2.x = 525
+tree2.y = 310
+tree2.interactive = false
+app.stage.addChild(tree2);
