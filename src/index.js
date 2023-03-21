@@ -14,7 +14,6 @@ const terrain = Sprite.from('assets/terrain.jpg');
 app.stage.addChild(terrain);
 
 
-
 // ------------------------------------------------- Trees ----------------------------------------------------------------------------
 const tree1 = Sprite.from('assets/tree.png');
 tree1.anchor.set(0.5);

@@ -22,7 +22,7 @@ const createUI = () => {
         downloadButton(),
     ]
 
-    document.body.append(...elements);
+    return elements;
 };
 
 export { createUI };
