@@ -1,42 +1,52 @@
-import * as PIXI from 'pixi.js';
-
-const app = new PIXI.Application();
+import { Texture, Container, Sprite, AnimatedSprite, Application } from 'pixi.js';
 import { createUI } from "./ui.js";
 
+const app = new Application(1000, 700);
 document.body.appendChild(app.view);
-
-app.loader.add('ball', 'assets/ball.png')
-          .add('goal', 'assets/goal.png')
-          .add('goalAnimation', 'assets/but.jpeg')
-          .load(setup);
 
 function setup() {
 
   // Create the ball 
-  const ball = new PIXI.Sprite(app.loader.resources.ball.texture);
+  const ball = Sprite.from('assets/ball.png');
   ball.anchor.set(0.5);
   ball.width = 50; 
   ball.height = 50;
   ball.position.set(app.screen.width / 2, app.screen.height - 100);
   ball.interactive = true;
   ball.buttonMode = true;
-  ball.on('pointerdown', onBallClick);
+  ball.onpointerdown = (event) => onBallClick();
   app.stage.addChild(ball);
 
   // Create the goal 
-  const goal = new PIXI.Sprite(app.loader.resources.goal.texture);
+  const goal = Sprite.from('assets/goal.png');
   goal.anchor.set(0.5);
   goal.width = 200; 
   goal.height = 100; 
   goal.position.set(app.screen.width / 2, 100);
   app.stage.addChild(goal);
+
+  // Create the trees
+  const tree1 = Sprite.from('assets/tree.png');
+    tree1.anchor.set(0.5);
+    tree1.width = 150
+    tree1.height = 150
+    tree1.x = 230
+    tree1.y = 110
+    app.stage.addChild(tree1);
+
+
+    const tree2 = Sprite.from('assets/tree.png');
+    tree2.anchor.set(0.5);
+    tree2.width = 150
+    tree2.height = 150
+    tree2.x = 570
+    tree2.y = 110
+    app.stage.addChild(tree2);
   
     
   // Create the goal animation
-  const goalAnimation = new PIXI.AnimatedSprite([
-    app.loader.resources.goal.texture,
-    app.loader.resources.goalAnimation.texture,
-  ]);
+  const texture = [Texture.from('assets/but.jpeg'),  Texture.from('assets/goal.png')];
+  const goalAnimation = new AnimatedSprite(texture);
   goalAnimation.anchor.set(0.5);
   goalAnimation.width = 200;
   goalAnimation.height = 100;
@@ -88,16 +98,46 @@ function setup() {
   }
 }
 
+// ------------------------------------------------ Container -------------------------------------------------------------------------
+/*const container = new Container();
+app.stage.addChild(container);*/
+
+// ------------------------------------------------ Terrain ---------------------------------------------------------------------------
+
+/*const terrain = Sprite.from('assets/terrain.jpg');
+app.stage.addChild(terrain);*/
+
+
+// ------------------------------------------------- Trees ----------------------------------------------------------------------------
+/*const tree1 = Sprite.from('assets/tree.png');
+tree1.anchor.set(0.5);
+tree1.width = 150
+tree1.height = 150
+tree1.x = 175
+tree1.y = 310
+app.stage.addChild(tree1);
+
+
+const tree2 = Sprite.from('assets/tree.png');
+tree2.anchor.set(0.5);
+tree2.width = 150
+tree2.height = 150
+tree2.x = 525
+tree2.y = 310
+app.stage.addChild(tree2);
+*/
 
 
 // ------------------------------------------------ Ballon ----------------------------------------------------------------------------
 
-const ballon = Sprite.from('assets/ballon.png');
+/*const ballon = Sprite.from('assets/ballon.png');
 ballon.anchor.set(0.5);
 ballon.width = 65;
 ballon.height = 65;
 ballon.x = 340;
 ballon.y = 400;
-app.stage.addChild(ballon);
+app.stage.addChild(ballon);*/
+
+setup();
 
 document.body.append(...createUI())
