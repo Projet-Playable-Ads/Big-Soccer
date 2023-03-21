@@ -9,9 +9,13 @@ const app = new Application({
     height: 800,
 });
 
-document.body.appendChild(app.view);
+const container = document.createElement("div");
+container.classList.add("container");
 
-createUI();
+container.appendChild(app.view);
+
+document.body.appendChild(container);
+container.append(...createUI());
 
 let sprite = Sprite.from("assets/bunny.png");
 

@@ -1,5 +1,12 @@
+
+@font-face {
+    font-family: "Trickster";
+    src: url('../src/assets/fonts/Daydream.ttf');
+}
+
 body {
     margin: 0;
+    font-family: "Trickster";
 }
 
 #download-button {
