@@ -8,10 +8,11 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "@pixi/assets": "^7.2.1",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "pixi.js": "^5.2.4",
+    "pixi.js": "^7.2.1",
     "webpack": "^5.76.2"
   },
   "devDependencies": {
