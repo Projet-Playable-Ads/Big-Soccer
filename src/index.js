@@ -48,6 +48,8 @@ async function setup() {
   goal.height = 100;
   goal.position.set(app.screen.width / 2, 50);
 
+  const buche = Sprite.from('assets/buche.png');
+  // Create the obstacle
   buche.anchor.set(0.5);
   buche.width = 50;
   buche.height = 50;
