@@ -1,8 +1,12 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer } from 'pixi.js';
 import { createUI } from "./ui.js";
 
-const app = new Application(1000, 700);
-document.body.appendChild(app.view);
+const container = document.body.appendChild(document.createElement("div"));
+container.classList.add("container");
+
+const app = new Application({resizeTo: window});
+
+container.appendChild(app.view);
 
 function setup() {
 
@@ -11,10 +15,10 @@ function setup() {
   ball.anchor.set(0.5);
   ball.width = 50; 
   ball.height = 50;
-  ball.position.set(app.screen.width / 2, app.screen.height - 100);
-  ball.interactive = true;
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.75);
+  ball.eventMode = 'static';
   ball.buttonMode = true;
-  ball.onpointerdown = (event) => onBallClick();
+  ball.onpointerdown = () => onBallClick();
   app.stage.addChild(ball);
 
   // Create the goal 
@@ -22,26 +26,8 @@ function setup() {
   goal.anchor.set(0.5);
   goal.width = 200; 
   goal.height = 100; 
-  goal.position.set(app.screen.width / 2, 100);
+  goal.position.set(app.renderer.width / 2, 100);
   app.stage.addChild(goal);
-
-  // Create the trees
-  const tree1 = Sprite.from('assets/tree.png');
-    tree1.anchor.set(0.5);
-    tree1.width = 150
-    tree1.height = 150
-    tree1.x = 230
-    tree1.y = 110
-    app.stage.addChild(tree1);
-
-
-    const tree2 = Sprite.from('assets/tree.png');
-    tree2.anchor.set(0.5);
-    tree2.width = 150
-    tree2.height = 150
-    tree2.x = 570
-    tree2.y = 110
-    app.stage.addChild(tree2);
   
     
   // Create the goal animation
@@ -50,7 +36,7 @@ function setup() {
   goalAnimation.anchor.set(0.5);
   goalAnimation.width = 200;
   goalAnimation.height = 100;
-  goalAnimation.position.set(app.screen.width / 2, 100);
+  goalAnimation.position.set(app.renderer.width / 2, 100);
   goalAnimation.animationSpeed = 0.1;
   goalAnimation.visible = false;
   app.stage.addChild(goalAnimation);
@@ -65,7 +51,7 @@ function setup() {
         ball.isAirborne = false;
         if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
           // Ball has reached the goal
-          ball.position.set(app.screen.width / 2, app.screen.height - 100);
+          ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
           ball.isAirborne = false;
           goalAnimation.visible = true;
           goalAnimation.play();
@@ -74,7 +60,7 @@ function setup() {
             
           }, 3000); 
         } else {
-          ball.position.set(app.screen.width / 2, app.screen.height - 100);
+          ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
         }
       }
     }
@@ -140,4 +126,10 @@ app.stage.addChild(ballon);*/
 
 setup();
 
-document.body.append(...createUI())
+window.addEventListener('resize', () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+})
+
+container.append(...createUI());
+
+document.body.append(container);

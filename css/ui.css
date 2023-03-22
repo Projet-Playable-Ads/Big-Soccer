@@ -16,10 +16,11 @@ body {
     display: flex;
     flex-direction: column;
     border: none;
-    background: black;
+    background: red;
     color: white;
     font-size: 2rem;
     align-items: center;
     text-transform: uppercase ;
     text-decoration: none;
+    padding: 8px;
 }
