@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@pixi/assets": "^7.2.1",
+    "@pixi/gif": "^2.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.0",

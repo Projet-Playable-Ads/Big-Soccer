@@ -1,12 +1,21 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, Assets } from 'pixi.js';
 import { createUI } from "./ui.js";
+import '@pixi/gif'
 
-const app = new Application(1000, 700);
+const app = new Application();
 document.body.appendChild(app.view);
 
-function setup() {
+async function setup() {
 
-  // Create the ball 
+  // Create the field
+  const terrain = Sprite.from('assets/terrain_snow.png');
+  terrain.anchor.set(0.5)
+  terrain.width = 400
+  terrain.height = 700
+  terrain.position.set(app.screen.width / 2, app.screen.height / 2);
+  app.stage.addChild(terrain);
+
+  // Create the ball
   const ball = Sprite.from('assets/ball.png');
   ball.anchor.set(0.5);
   ball.width = 50; 
@@ -15,32 +24,64 @@ function setup() {
   ball.interactive = true;
   ball.buttonMode = true;
   ball.onpointerdown = (event) => onBallClick();
+  ball.speed = 10
   app.stage.addChild(ball);
 
-  // Create the goal 
-  const goal = Sprite.from('assets/goal.png');
+  // Insert the hand gif
+
+  const hand_guide = await Assets.load('assets/hand_pixel_anim.gif');
+  hand_guide.position.set(ball.x, ball.y - 100)
+  /*app.ticker.add(function(delta) {
+    zone.rotation += 0.05;
+  })*/
+  app.stage.addChild(hand_guide)
+
+  // Create the obstacle
+  const goal = Sprite.from('assets/cage_snow.png');
+  const buche = Sprite.from('assets/buche.png');
   goal.anchor.set(0.5);
-  goal.width = 200; 
-  goal.height = 100; 
-  goal.position.set(app.screen.width / 2, 100);
+  goal.width = 200;
+  goal.height = 100;
+  goal.position.set(app.screen.width / 2, 50);
+
+  buche.anchor.set(0.5);
+  buche.width = 50;
+  buche.height = 50;
+  buche.x = app.view.width / 2 + 100;
+  buche.y = app.view.height / 2;
+  //goalkeeper.interactive = true;
+  //goalkeeper.position.set(app.screen.width / 2, 100);
+  
   app.stage.addChild(goal);
+  app.stage.addChild(buche);
+  
+  //app.ticker.add(gameObstacle);
+
+
+  /*function gameObstacle() {
+
+    if (ball.y === buche.y ) {
+        ball.y += 10;
+    }
+  }*/
+
 
   // Create the trees
   const tree1 = Sprite.from('assets/tree.png');
-    tree1.anchor.set(0.5);
-    tree1.width = 150
-    tree1.height = 150
-    tree1.x = 230
-    tree1.y = 110
+  tree1.anchor.set(0.5);
+  tree1.width = 75
+    tree1.height = 75
+    tree1.x = app.view.width / 1.5
+    tree1.y = app.view.height / 3
     app.stage.addChild(tree1);
 
 
     const tree2 = Sprite.from('assets/tree.png');
     tree2.anchor.set(0.5);
-    tree2.width = 150
-    tree2.height = 150
-    tree2.x = 570
-    tree2.y = 110
+    tree2.width = 75
+    tree2.height = 75
+    tree2.x = app.view.width / 3
+    tree2.y = app.view.height / 3
     app.stage.addChild(tree2);
   
     
@@ -79,7 +120,6 @@ function setup() {
       }
     }
   });
-
   
   function onBallClick() {
     ball.isAirborne = true;
@@ -96,6 +136,13 @@ function setup() {
     ball.vx = velocity.x;
     ball.vy = velocity.y;
   }
+
+  /*function move_goalkeeper(e) {
+    let pos = e.data.global
+
+    goalkeeper.x = pos.x;
+    goalkeeper.y = pos.y;
+  }*/
 }
 
 // ------------------------------------------------ Container -------------------------------------------------------------------------
