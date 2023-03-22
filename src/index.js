@@ -1,5 +1,6 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer, Assets } from 'pixi.js';
 import { createUI } from "./ui.js";
+import { firstScreen } from './firstScreen.js';
 import '@pixi/gif'
 
 
@@ -16,8 +17,8 @@ async function setup() {
   // Create the field
   const terrain = Sprite.from('assets/terrain_snow.png');
   terrain.anchor.set(0.5)
-  terrain.width = 400
-  terrain.height = 700
+  terrain.width = app.screen.width;
+  terrain.height = app.screen.height;
   terrain.position.set(app.screen.width / 2, app.screen.height / 2);
   app.stage.addChild(terrain);
 
@@ -104,6 +105,7 @@ app.stage.addChild(ball);
   goalAnimation.visible = false;
   app.stage.addChild(goalAnimation);
 
+  const beginningScreen = firstScreen(ball);
 
 
   // Listen for frame updates
@@ -131,6 +133,8 @@ app.stage.addChild(ball);
   
   function onBallClick() {
     ball.isAirborne = true;
+    beginningScreen.style.display = "none";
+    hand_guide.visible = false;
     const goalPosition = goal.position;
     const ballPosition = ball.position;
     const dx = goalPosition.x - ballPosition.x;
@@ -144,6 +148,7 @@ app.stage.addChild(ball);
     ball.vx = velocity.x;
     ball.vy = velocity.y;
   }
+
 
   /*function move_goalkeeper(e) {
     let pos = e.data.global

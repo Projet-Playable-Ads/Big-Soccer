@@ -12,6 +12,7 @@
     "@pixi/gif": "^2.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
+    "fontfaceobserver": "^2.3.0",
     "html-webpack-plugin": "^5.5.0",
     "pixi.js": "^7.2.1",
     "webpack": "^5.76.2"

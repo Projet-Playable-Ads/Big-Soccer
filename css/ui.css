@@ -24,3 +24,30 @@ body {
     text-decoration: none;
     padding: 8px;
 }
+
+#download-button span:nth-child(2) {
+    animation: bubbles;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bubbles {
+    0% {
+        transform: scale(1)
+    }
+    50% {
+        transform: scale(1.2)
+    }
+}
+
+#tap-to-shoot {
+    position: absolute;
+    font-family: 'Trickster';
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    animation-name: bubbles;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    color: black;
+}
