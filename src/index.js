@@ -1,9 +1,15 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application, Assets } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer } from 'pixi.js';
 import { createUI } from "./ui.js";
 import '@pixi/gif'
 
-const app = new Application();
-document.body.appendChild(app.view);
+
+const container = document.body.appendChild(document.createElement("div"));
+container.classList.add("container");
+
+const app = new Application({resizeTo: window});
+
+container.appendChild(app.view);
+
 
 async function setup() {
 
@@ -20,12 +26,13 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50; 
   ball.height = 50;
-  ball.position.set(app.screen.width / 2, app.screen.height - 100);
-  ball.interactive = true;
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.75);
+  ball.eventMode = 'static';
   ball.buttonMode = true;
-  ball.onpointerdown = (event) => onBallClick();
   ball.speed = 10
-  app.stage.addChild(ball);
+  ball.onpointerdown = () => onBallClick();
+
+app.stage.addChild(ball);
 
   // Insert the hand gif
 
@@ -83,6 +90,7 @@ async function setup() {
     tree2.x = app.view.width / 3
     tree2.y = app.view.height / 3
     app.stage.addChild(tree2);
+
   
     
   // Create the goal animation
@@ -91,7 +99,7 @@ async function setup() {
   goalAnimation.anchor.set(0.5);
   goalAnimation.width = 200;
   goalAnimation.height = 100;
-  goalAnimation.position.set(app.screen.width / 2, 100);
+  goalAnimation.position.set(app.renderer.width / 2, 100);
   goalAnimation.animationSpeed = 0.1;
   goalAnimation.visible = false;
   app.stage.addChild(goalAnimation);
@@ -106,7 +114,7 @@ async function setup() {
         ball.isAirborne = false;
         if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
           // Ball has reached the goal
-          ball.position.set(app.screen.width / 2, app.screen.height - 100);
+          ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
           ball.isAirborne = false;
           goalAnimation.visible = true;
           goalAnimation.play();
@@ -115,7 +123,7 @@ async function setup() {
             
           }, 3000); 
         } else {
-          ball.position.set(app.screen.width / 2, app.screen.height - 100);
+          ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
         }
       }
     }
@@ -187,4 +195,10 @@ app.stage.addChild(ballon);*/
 
 setup();
 
-document.body.append(...createUI())
+window.addEventListener('resize', () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+})
+
+container.append(...createUI());
+
+document.body.append(container);
