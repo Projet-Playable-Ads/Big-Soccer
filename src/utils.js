@@ -16,3 +16,5 @@ export const losingSound = Sound.from("assets/USUCKLOL.mp3");
 
 export const music = Sound.from("assets/BIGSOCCERTHEME2.mp3");
 music.loop = true;
+
+export const shootSound = Sound.from("assets/BIGSHOT.mp3");

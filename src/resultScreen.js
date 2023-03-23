@@ -4,8 +4,8 @@ import { app, losingSound, winningSound } from "./utils.js";
 
 const goalAnimation = Sprite.from("assets/GOAL.png");
 goalAnimation.visible = false;
-const lose = Sprite.from("assets/lose.jpeg");
-lose.visible = false;
+// const lose = Sprite.from("assets/lose.jpeg");
+// lose.visible = false;
 
 /**
  *

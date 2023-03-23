@@ -1,6 +1,6 @@
 import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
 import { showFirstScreen } from "./firstScreen.js";
-import { app, container, BALL_INITIAL_POSITION, music } from "./utils.js";
+import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
 import "@pixi/gif";
 import { loseScreen, winScreen } from "./resultScreen.js";
 import "../css/ui.css";
@@ -95,6 +95,7 @@ async function setup() {
 
   
   function onBallClick() {
+    shootSound.play();
     ball.interactive = false;
     isBallAirborne = true;
     firstScreen.style.display = "none";
