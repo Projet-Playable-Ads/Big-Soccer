@@ -6,9 +6,11 @@ import { loseScreen, winScreen } from "./resultScreen.js";
 import "../css/ui.css";
 import "../css/style.css";
 import "../css/screens.css";
+import { addConfetti } from "./animate.js";
 
 async function setup() {
   // Create the field
+  app.stage.sortableChildren = true;
   const terrain = Sprite.from("assets/terrain_snow.png");
   terrain.anchor.set(0.5);
   terrain.width = app.screen.width;
@@ -26,7 +28,7 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50;
   ball.height = 50;
-  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.7);
+  ball.position.set(app.renderer.width / 2, BALL_INITIAL_POSITION);
   ball.eventMode = "static";
   ball.buttonMode = true;
   ball.speed = 10;
@@ -38,7 +40,9 @@ async function setup() {
 
   const hand_guide = await Assets.load('assets/hand_pixel_anim.gif');
   hand_guide.position.set(ball.x, ball.y - 100)
-  app.stage.addChild(hand_guide)
+  app.stage.addChild(hand_guide);
+
+  const confetto = await addConfetti();
 
   // Create the obstacle
   const goal = Sprite.from("assets/cage_snow.png");
@@ -62,7 +66,7 @@ async function setup() {
   arrow.width = 50;
   arrow.height = 50;
   arrow.rotation = -Math.PI / 2;
-  arrow.position.set(ball.x, ball.y - 50);
+  arrow.position.set(ball.x, ball.y);
   app.stage.addChild(arrow);
 
   // Create a new sprite for the "lose" message
@@ -157,7 +161,7 @@ async function setup() {
         ball.x > goal.x - goal.width / 2 &&
         ball.x < goal.x + goal.width / 2
       ) {
-        winScreen(gameStart);
+        winScreen(gameStart, confetto);
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
