@@ -1,4 +1,4 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer, Assets } from 'pixi.js';
 import { createUI } from "./ui.js";
 import '@pixi/gif'
 
@@ -23,12 +23,7 @@ async function setup() {
 
   // Create the ball
   const ball = Sprite.from('assets/ball.png');
-const assets = [
-  { name: 'arrow', url: 'assets/realarrowblue.png' },
-  { name: 'lose', url: 'assets/lose.jpeg' },
-  { name: 'obstacle', url: 'assets/obstacle.png' },
 
-];
   // Initialize a variable to track whether the ball is airborne
   let isBallAirborne = false;
 
@@ -188,17 +183,6 @@ const assets = [
     ball.vy = speed * Math.sin(angle);
     arrow.visible = false;
   }
-}
-
-setup();
-
-window.addEventListener('resize', () => {
-    app.renderer.resize(window.innerWidth, window.innerHeight);
-})
-
-container.append(...createUI());
-
-document.body.append(container);
 
   app.ticker.add(update);
 
@@ -298,3 +282,14 @@ document.body.append(container);
     }
   }
 
+}
+
+setup();
+
+window.addEventListener('resize', () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+})
+
+container.append(...createUI());
+
+document.body.append(container);
