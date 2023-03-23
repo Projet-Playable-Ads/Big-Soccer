@@ -1,6 +1,8 @@
 import "../css/ui.css";
 
 const downloadButton = () => {
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("btn-container");
     const downloadButton = document.createElement("a");
     downloadButton.setAttribute("id", "download-button");
     downloadButton.classList.add("btn");
@@ -13,8 +15,9 @@ const downloadButton = () => {
     downloadText.textContent = "Download!!!";
     
     downloadButton.append(img, downloadText);
+    buttonContainer.append(downloadButton)
 
-    return downloadButton;
+    return buttonContainer;
 }
 
 const createUI = () => {

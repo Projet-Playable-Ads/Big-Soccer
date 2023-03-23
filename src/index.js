@@ -27,7 +27,7 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50; 
   ball.height = 50;
-  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.75);
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.6);
   ball.eventMode = 'static';
   ball.buttonMode = true;
   ball.speed = 10

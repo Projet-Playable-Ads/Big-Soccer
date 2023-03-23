@@ -9,25 +9,35 @@ body {
     font-family: "Trickster";
 }
 
-#download-button {
+.btn-container {
     position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
+    justify-content: center;
+}
+
+#download-button {
+    display: flex;
     flex-direction: column;
     border: none;
-    background: red;
-    color: white;
-    font-size: 2rem;
+    background: black;
+    color: red;
+    font-size: 1.5rem;
     align-items: center;
     text-transform: uppercase ;
     text-decoration: none;
     padding: 8px;
+    font-style: italic;
+    border-radius: 20px;
+    border: 10px solid darkgray;
+    width: 100%;
 }
 
 #download-button img {
     width: 100%;
     object-fit: contain;
+    height: 5rem;
 }
 
 #download-button span:nth-child(2) {
