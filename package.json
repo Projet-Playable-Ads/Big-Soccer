@@ -10,6 +10,7 @@
   "dependencies": {
     "@pixi/assets": "^7.2.1",
     "@pixi/gif": "^2.1.0",
+    "@pixi/sound": "^5.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "fontfaceobserver": "^2.3.0",

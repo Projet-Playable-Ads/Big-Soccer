@@ -1,20 +1,22 @@
-import { Texture, Sprite, AnimatedSprite, Assets } from 'pixi.js';
-import { showFirstScreen } from './firstScreen.js';
-import { app, container, BALL_INITIAL_POSITION } from './utils.js';
-import '@pixi/gif'
-
+import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
+import { showFirstScreen } from "./firstScreen.js";
+import { app, container, BALL_INITIAL_POSITION, music } from "./utils.js";
+import "@pixi/gif";
+import { loseScreen, winScreen } from "./resultScreen.js";
+import "../css/ui.css";
+import "../css/style.css";
 
 async function setup() {
   // Create the field
-  const terrain = Sprite.from('assets/terrain_snow.png');
-  terrain.anchor.set(0.5)
+  const terrain = Sprite.from("assets/terrain_snow.png");
+  terrain.anchor.set(0.5);
   terrain.width = app.screen.width;
   terrain.height = app.screen.height;
   terrain.position.set(app.screen.width / 2, app.screen.height / 2);
   app.stage.addChild(terrain);
 
   // Create the ball
-  const ball = Sprite.from('assets/ball.png');
+  const ball = Sprite.from("assets/ball.png");
 
   // Initialize a variable to track whether the ball is airborne
   let isBallAirborne = false;
@@ -24,25 +26,25 @@ async function setup() {
   ball.width = 50;
   ball.height = 50;
   ball.position.set(app.renderer.width / 2, app.renderer.height * 0.7);
-  ball.eventMode = 'static';
+  ball.eventMode = "static";
   ball.buttonMode = true;
-  ball.speed = 10
+  ball.speed = 10;
   ball.onpointerdown = () => onBallClick();
 
   app.stage.addChild(ball);
 
   // Insert the hand gif
 
-  const hand_guide = await Assets.load('assets/hand_pixel_anim.gif');
-  hand_guide.position.set(ball.x, ball.y - 100)
+  const hand_guide = await Assets.load("assets/hand_pixel_anim.gif");
+  hand_guide.position.set(ball.x, ball.y - 100);
   /*app.ticker.add(function(delta) {
     zone.rotation += 0.05;
   })*/
-  app.stage.addChild(hand_guide)
+  app.stage.addChild(hand_guide);
 
   // Create the obstacle
-  const goal = Sprite.from('assets/cage_snow.png');
-  const buche = Sprite.from('assets/buche.png');
+  const goal = Sprite.from("assets/cage_snow.png");
+  const buche = Sprite.from("assets/buche.png");
   goal.anchor.set(0.5);
   goal.width = 200;
   goal.height = 100;
@@ -55,12 +57,11 @@ async function setup() {
   buche.y = app.view.height / 2;
   //goalkeeper.interactive = true;
   //goalkeeper.position.set(app.screen.width / 2, 100);
-  
+
   app.stage.addChild(goal);
   //app.stage.addChild(buche);
-  
-  //app.ticker.add(gameObstacle);
 
+  //app.ticker.add(gameObstacle);
 
   /*function gameObstacle() {
 
@@ -69,24 +70,12 @@ async function setup() {
     }
   }*/
 
-
   // Create the trees
-    
-  // Create the goal animation
-  const texture = [Texture.from('assets/but.jpeg'),  Texture.from('assets/goal.png')];
-  const goalAnimation = new AnimatedSprite(texture);
 
-  goalAnimation.anchor.set(0.5);
-  goalAnimation.width = 200;
-  goalAnimation.height = 100;
-  goalAnimation.position.set(app.renderer.width / 2, 100);
-  goalAnimation.animationSpeed = 0.1;
-  goalAnimation.visible = false;
-  goalAnimation.loop = false;
-  app.stage.addChild(goalAnimation);
+  // Create the goal animation
 
   // Create a new sprite for the arrow
-  const arrow = Sprite.from('assets/realarrowblue.png');
+  const arrow = Sprite.from("assets/realarrowblue.png");
   arrow.anchor.set(0.5);
   arrow.width = 50;
   arrow.height = 50;
@@ -95,16 +84,9 @@ async function setup() {
   app.stage.addChild(arrow);
 
   // Create a new sprite for the "lose" message
-  const lose = Sprite.from('assets/lose.jpeg');
-  lose.anchor.set(0.5);
-  lose.width = 400;
-  lose.height = 200;
-  lose.position.set(app.screen.width / 2, app.screen.height / 2);
-  lose.visible = false;
-  app.stage.addChild(lose);
 
   // Create a new sprite for the obstacle
-  const obstacle = Sprite.from('assets/obstacle.png');
+  const obstacle = Sprite.from("assets/obstacle.png");
   obstacle.anchor.set(0.5);
   obstacle.width = 100;
   obstacle.height = 100;
@@ -117,33 +99,8 @@ async function setup() {
 
   const [button, firstScreen] = showFirstScreen(ball);
 
-
-  // Listen for frame updates
-  // app.ticker.add(() => {
-  //   if (ball.isAirborne) {
-  //     ball.y -= 10;
-  //     if (ball.y < 0) {
-  //       ball.isAirborne = false;
-  //       if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
-  //         // Ball has reached the goal
-  //         console.log("reaching goal");
-  //         ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
-  //         ball.isAirborne = false;
-  //         goalAnimation.visible = true;
-  //         goalAnimation.play();
-  //         setTimeout(() => {
-  //           console.log("timetout");
-  //           goalAnimation.visible = false;
-            
-  //         }, 3000); 
-  //       } else {
-  //         ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
-  //       }
-  //     }
-  //   }
-  // });
-  
   function onBallClick() {
+    ball.interactive = false;
     isBallAirborne = true;
     firstScreen.style.display = "none";
     button.style.display = "none";
@@ -159,13 +116,13 @@ async function setup() {
     arrow.visible = false;
   }
 
-  app.ticker.add(update);
+  app.ticker.add(update)
 
   function update() {
     // Update the arrow position and rotation
     arrow.x = ball.x;
     arrow.y = ball.y - 50;
-    arrow.rotation += arrowDirection * Math.PI / 180;
+    arrow.rotation += (arrowDirection * Math.PI) / 180;
     arrowAngle = arrow.rotation;
 
     // Reverse the arrow direction when it reaches the limits of its rotation
@@ -211,41 +168,27 @@ async function setup() {
       }
 
       // Check if the ball has reached the goal and trigger the goal animation
-      if (ball.y < goal.y && ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
-        ball.vx = 0;
-        ball.vy = 0;
-        goalAnimation.visible = true;
-        goalAnimation.play();
-        goalAnimation.onComplete = () => {
-          goalAnimation.visible = false;
-          ball.x = app.screen.width / 2;
-          ball.y = BALL_INITIAL_POSITION;
-          ball.vx = 0;
-          ball.vy = 0;
-          isBallAirborne = false;
-        };
+      if (
+        ball.y < goal.y &&
+        ball.x > goal.x - goal.width / 2 &&
+        ball.x < goal.x + goal.width / 2
+      ) {
+        winScreen(gameStart);
+        return;
       } else {
         // Show the "lose" message if the ball has stopped moving
         if (Math.abs(ball.vy) < 1 && Math.abs(ball.vx) < 1) {
-          lose.visible = true;
-          lose.interactive = true;
-          lose.buttonMode = true;
-          lose.on('pointerdown', () => {
-            lose.visible = false;
-            ball.x = app.screen.width / 2;
-            ball.y = BALL_INITIAL_POSITION;
-            ball.vx = 0;
-            ball.vy = 0;
-            isBallAirborne = false;
-            arrow.visible = true;
-          });
+          loseScreen(gameStart);
+          return;
         }
       }
 
       // Check if the ball collides with the obstacle
       const dxObstacle = obstacle.x - ball.x;
       const dyObstacle = obstacle.y - ball.y;
-      const distanceObstacle = Math.sqrt(dxObstacle * dxObstacle + dyObstacle * dyObstacle);
+      const distanceObstacle = Math.sqrt(
+        dxObstacle * dxObstacle + dyObstacle * dyObstacle
+      );
       if (distanceObstacle < ball.width / 2 + obstacle.width / 2) {
         // Reverse the ball's velocity and apply friction
         ball.vx = -ball.vx * 0.8;
@@ -253,18 +196,27 @@ async function setup() {
         ball.vx *= 0.99;
         ball.vy *= 0.99;
       }
-
     }
   }
+
+  function gameStart() {
+    ball.x = app.screen.width / 2;
+    ball.y = BALL_INITIAL_POSITION;
+    ball.vx = 0;
+    ball.vy = 0;
+    isBallAirborne = false;
+    arrow.visible = true;
+    ball.interactive = true;
+  }
+
+  music.play();
 
 }
 
 setup();
 
-
-window.addEventListener('resize', () => {
-    app.renderer.resize(container.clientWidth, container.clientHeight);
-})
-
+window.addEventListener("resize", () => {
+  app.renderer.resize(container.clientWidth, container.clientHeight);
+});
 
 document.body.append(container);

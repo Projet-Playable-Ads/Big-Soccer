@@ -1,5 +1,3 @@
-import "../css/ui.css";
-
 const downloadButton = () => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("btn-container");
