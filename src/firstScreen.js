@@ -7,23 +7,12 @@ import { Sprite } from "pixi.js"
  */
 
 export const firstScreen = (ball) => {
-    /*const container = new Container();
-    const text = new Text("Tap to shoot", {
-        fontFamily: 'Trickster',
-        fontSize: 15,
-        fill: 'black'
-    })
-    text.width = app.renderer.width;
-    text.position.set(- app.screen.width / 2, 30)
-    container.addChild(text);
-    let font = new FontFaceObserver('Trickster', {});
-    font.load().then(() => {
-        text.updateText();
-    })
-    text.width = app.screen.width;*/
-
-    const text = document.createElement("span");
-    text.innerText = "Tap to shoot"
+    const text = document.createElement("div");
+    const shootText = document.createElement("span");
+    shootText.innerText = "Tap to";
+    const innerText = document.createElement("span");
+    innerText.innerText = "Shoot!";
+    text.append(shootText, innerText);
     text.setAttribute('id', 'tap-to-shoot');
     const height = ball.position.y + 30;
     text.style = `top : ${height}px`;

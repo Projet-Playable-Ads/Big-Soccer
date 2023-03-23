@@ -25,6 +25,11 @@ body {
     padding: 8px;
 }
 
+#download-button img {
+    width: 100%;
+    object-fit: contain;
+}
+
 #download-button span:nth-child(2) {
     animation: bubbles;
     animation-duration: 2s;
@@ -50,4 +55,12 @@ body {
     animation-duration: 2s;
     animation-iteration-count: infinite;
     color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+#tap-to-shoot span:nth-child(2) {
+    font-size: 25px;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #B80000;
 }

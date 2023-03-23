@@ -6,13 +6,13 @@ const downloadButton = () => {
     downloadButton.classList.add("btn");
     downloadButton.href = "https://www.google.com";
     
-    const span = document.createElement("span");
-    span.textContent = "Big Soccer";
+    const img = document.createElement("img");
+    img.setAttribute("src", "assets/bigsoccerlogo1.png")
 
-    const downloadText = span.cloneNode();
-    downloadText.textContent = "Download !!!";
+    const downloadText = document.createElement("span");
+    downloadText.textContent = "Download!!!";
     
-    downloadButton.append(span, downloadText);
+    downloadButton.append(img, downloadText);
 
     return downloadButton;
 }
