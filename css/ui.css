@@ -37,7 +37,7 @@ body {
 #download-button img {
     width: 100%;
     object-fit: contain;
-    height: 5rem;
+    height: 3rem;
 }
 
 #download-button span:nth-child(2) {

@@ -1,5 +1,4 @@
 import { Texture, Sprite, AnimatedSprite, Assets } from 'pixi.js';
-import { createUI, downloadButton } from "./ui.js";
 import { showFirstScreen } from './firstScreen.js';
 import { app, container, BALL_INITIAL_POSITION } from './utils.js';
 import '@pixi/gif'
@@ -24,7 +23,7 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50;
   ball.height = 50;
-  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.6);
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.7);
   ball.eventMode = 'static';
   ball.buttonMode = true;
   ball.speed = 10
