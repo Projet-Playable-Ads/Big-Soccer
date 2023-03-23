@@ -9,13 +9,13 @@ body {
     font-family: "Trickster";
 }
 
-.btn-container {
+ .btn-container {
     position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-}
+} 
 
 #download-button {
     display: flex;
@@ -37,7 +37,7 @@ body {
 #download-button img {
     width: 100%;
     object-fit: contain;
-    height: 5rem;
+    height: 3rem;
 }
 
 #download-button span:nth-child(2) {
