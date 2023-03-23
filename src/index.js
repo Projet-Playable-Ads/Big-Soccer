@@ -32,6 +32,7 @@ async function setup() {
   ball.eventMode = "static";
   ball.buttonMode = true;
   ball.speed = 10;
+  ball.zIndex = 2;
   ball.onpointerdown = () => onBallClick();
 
   app.stage.addChild(ball);
@@ -69,14 +70,10 @@ async function setup() {
   arrow.position.set(ball.x, ball.y);
   app.stage.addChild(arrow);
 
-  // Create a new sprite for the "lose" message
-
   // Create a new sprite for the obstacle
-  const obstacle = Sprite.from("assets/obstacle.png");
+  const obstacle = Sprite.from("assets/wood.png");
   obstacle.anchor.set(0.5);
-  obstacle.width = 100;
-  obstacle.height = 100;
-  obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5);
+  obstacle.position.set(app.screen.width * 0.6, app.screen.height * 0.5);
   app.stage.addChild(obstacle);
 
   //  variables to track the arrow direction and angle
@@ -93,10 +90,6 @@ async function setup() {
     firstScreen.style.display = "none";
     button.style.display = "none";
     hand_guide.visible = false;
-    const goalPosition = goal.position;
-    const ballPosition = ball.position;
-    // const dx = goalPosition.x - ballPosition.x;
-    // const dy = goalPosition.y - ballPosition.y;
     const angle = arrowAngle;
     const speed = 10;
     ball.vx = speed * Math.cos(angle);
