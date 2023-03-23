@@ -78,7 +78,6 @@ async function setup() {
   const goalAnimation = new AnimatedSprite(texture);
   //const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
   //const goalAnimation = new AnimatedSprite(texture);
-  endScreen();
   // Create a new sprite for the goal
   goal.anchor.set(0.5, 1);
   goal.width = 200;
@@ -139,13 +138,13 @@ async function setup() {
   //           console.log("timetout");
   //           goalAnimation.visible = false;
             
-          }, 3000); */
-        } else {
-          ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
-        }
-      }
-    }
-  });
+  //        }, 3000); */
+  //      } else {
+  //        ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
+  //      }
+  //    }
+  //  }
+  //});
   
   function onBallClick() {
     shootSound.play();
