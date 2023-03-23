@@ -1,5 +1,6 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer, Assets } from 'pixi.js';
+import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer, Assets, Assets } from 'pixi.js';
 import { createUI } from "./ui.js";
+import { firstScreen } from './firstScreen.js';
 import '@pixi/gif'
 
 
@@ -16,8 +17,8 @@ async function setup() {
   // Create the field
   const terrain = Sprite.from('assets/terrain_snow.png');
   terrain.anchor.set(0.5)
-  terrain.width = 400
-  terrain.height = 700
+  terrain.width = app.screen.width;
+  terrain.height = app.screen.height;
   terrain.position.set(app.screen.width / 2, app.screen.height / 2);
   app.stage.addChild(terrain);
 
@@ -31,7 +32,7 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50;
   ball.height = 50;
-  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.75);
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.6);
   ball.eventMode = 'static';
   ball.buttonMode = true;
   ball.speed = 10
@@ -145,6 +146,7 @@ async function setup() {
   //  variables to track the arrow direction and angle
   let arrowDirection = 1;
   let arrowAngle = arrow.rotation;
+  const beginningScreen = firstScreen(ball);
 
 
   // Listen for frame updates
@@ -172,7 +174,8 @@ async function setup() {
   
   function onBallClick() {
     isBallAirborne = true;
-
+    beginningScreen.style.display = "none";
+    hand_guide.visible = false;
     const goalPosition = goal.position;
     const ballPosition = ball.position;
     const dx = goalPosition.x - ballPosition.x;

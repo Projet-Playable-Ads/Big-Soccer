@@ -1,20 +1,23 @@
 import "../css/ui.css";
 
 const downloadButton = () => {
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("btn-container");
     const downloadButton = document.createElement("a");
     downloadButton.setAttribute("id", "download-button");
     downloadButton.classList.add("btn");
     downloadButton.href = "https://www.google.com";
     
-    const span = document.createElement("span");
-    span.textContent = "Big Soccer";
+    const img = document.createElement("img");
+    img.setAttribute("src", "assets/bigsoccerlogo1.png")
 
-    const downloadText = span.cloneNode();
-    downloadText.textContent = "Download !!!";
+    const downloadText = document.createElement("span");
+    downloadText.textContent = "Download!!!";
     
-    downloadButton.append(span, downloadText);
+    downloadButton.append(img, downloadText);
+    buttonContainer.append(downloadButton)
 
-    return downloadButton;
+    return buttonContainer;
 }
 
 const createUI = () => {
@@ -26,3 +29,4 @@ const createUI = () => {
 };
 
 export { createUI };
+
