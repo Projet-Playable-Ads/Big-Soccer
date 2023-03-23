@@ -1,16 +1,14 @@
-import { Texture, Container, Sprite, AnimatedSprite, Application, autoDetectRenderer, Assets, Assets } from 'pixi.js';
+import { Texture, Sprite, AnimatedSprite, Assets } from 'pixi.js';
 import { createUI } from "./ui.js";
 import { firstScreen } from './firstScreen.js';
+import { app, BALL_INITIAL_POSITION } from './utils.js';
 import '@pixi/gif'
 
 
 const container = document.body.appendChild(document.createElement("div"));
 container.classList.add("container");
 
-const app = new Application({resizeTo: window});
-
 container.appendChild(app.view);
-
 
 async function setup() {
 
@@ -66,7 +64,7 @@ async function setup() {
   //goalkeeper.position.set(app.screen.width / 2, 100);
   
   app.stage.addChild(goal);
-  app.stage.addChild(buche);
+  //app.stage.addChild(buche);
   
   //app.ticker.add(gameObstacle);
 
@@ -80,34 +78,10 @@ async function setup() {
 
 
   // Create the trees
-  const tree1 = Sprite.from('assets/tree.png');
-  tree1.anchor.set(0.5);
-  tree1.width = 75
-    tree1.height = 75
-    tree1.x = app.view.width / 1.5
-    tree1.y = app.view.height / 3
-    app.stage.addChild(tree1);
-
-
-    const tree2 = Sprite.from('assets/tree.png');
-    tree2.anchor.set(0.5);
-    tree2.width = 75
-    tree2.height = 75
-    tree2.x = app.view.width / 3
-    tree2.y = app.view.height / 3
-    app.stage.addChild(tree2);
-
-  
     
   // Create the goal animation
   const texture = [Texture.from('assets/but.jpeg'),  Texture.from('assets/goal.png')];
   const goalAnimation = new AnimatedSprite(texture);
-  // Create a new sprite for the goal
-  goal.anchor.set(0.5, 1);
-  goal.width = 200;
-  goal.height = 100;
-  goal.position.set(app.screen.width / 2, app.screen.height - 500);
-  app.stage.addChild(goal);
 
   goalAnimation.anchor.set(0.5);
   goalAnimation.width = 200;
@@ -115,6 +89,7 @@ async function setup() {
   goalAnimation.position.set(app.renderer.width / 2, 100);
   goalAnimation.animationSpeed = 0.1;
   goalAnimation.visible = false;
+  goalAnimation.loop = false;
   app.stage.addChild(goalAnimation);
 
   // Create a new sprite for the arrow
@@ -140,7 +115,7 @@ async function setup() {
   obstacle.anchor.set(0.5);
   obstacle.width = 100;
   obstacle.height = 100;
-  obstacle.position.set(app.screen.width / 2, app.screen.height - 300);
+  obstacle.position.set(app.screen.width / 2, app.screen.height - 200);
   app.stage.addChild(obstacle);
 
   //  variables to track the arrow direction and angle
@@ -150,27 +125,29 @@ async function setup() {
 
 
   // Listen for frame updates
-  app.ticker.add(() => {
-    if (ball.isAirborne) {
-      ball.y -= 10;
-      if (ball.y < 0) {
-        ball.isAirborne = false;
-        if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
-          // Ball has reached the goal
-          ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
-          ball.isAirborne = false;
-          goalAnimation.visible = true;
-          goalAnimation.play();
-          setTimeout(() => {
-            goalAnimation.visible = false;
+  // app.ticker.add(() => {
+  //   if (ball.isAirborne) {
+  //     ball.y -= 10;
+  //     if (ball.y < 0) {
+  //       ball.isAirborne = false;
+  //       if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
+  //         // Ball has reached the goal
+  //         console.log("reaching goal");
+  //         ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
+  //         ball.isAirborne = false;
+  //         goalAnimation.visible = true;
+  //         goalAnimation.play();
+  //         setTimeout(() => {
+  //           console.log("timetout");
+  //           goalAnimation.visible = false;
             
-          }, 3000); 
-        } else {
-          ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
-        }
-      }
-    }
-  });
+  //         }, 3000); 
+  //       } else {
+  //         ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
+  //       }
+  //     }
+  //   }
+  // });
   
   function onBallClick() {
     isBallAirborne = true;
@@ -178,8 +155,8 @@ async function setup() {
     hand_guide.visible = false;
     const goalPosition = goal.position;
     const ballPosition = ball.position;
-    const dx = goalPosition.x - ballPosition.x;
-    const dy = goalPosition.y - ballPosition.y;
+    // const dx = goalPosition.x - ballPosition.x;
+    // const dy = goalPosition.y - ballPosition.y;
     const angle = arrowAngle;
     const speed = 10;
     ball.vx = speed * Math.cos(angle);
@@ -247,21 +224,21 @@ async function setup() {
         goalAnimation.onComplete = () => {
           goalAnimation.visible = false;
           ball.x = app.screen.width / 2;
-          ball.y = app.screen.height - 100;
+          ball.y = BALL_INITIAL_POSITION;
           ball.vx = 0;
           ball.vy = 0;
           isBallAirborne = false;
         };
       } else {
         // Show the "lose" message if the ball has stopped moving
-        if (Math.abs(ball.vy) < 0.01 && Math.abs(ball.vx) < 0.01) {
+        if (Math.abs(ball.vy) < 1 && Math.abs(ball.vx) < 1) {
           lose.visible = true;
           lose.interactive = true;
           lose.buttonMode = true;
           lose.on('pointerdown', () => {
             lose.visible = false;
             ball.x = app.screen.width / 2;
-            ball.y = app.screen.height - 100;
+            ball.y = BALL_INITIAL_POSITION;
             ball.vx = 0;
             ball.vy = 0;
             isBallAirborne = false;
