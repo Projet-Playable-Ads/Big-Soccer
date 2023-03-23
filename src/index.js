@@ -35,9 +35,6 @@ async function setup() {
 
   const hand_guide = await Assets.load('assets/hand_pixel_anim.gif');
   hand_guide.position.set(ball.x, ball.y - 100)
-  /*app.ticker.add(function(delta) {
-    zone.rotation += 0.05;
-  })*/
   app.stage.addChild(hand_guide)
 
   // Create the obstacle
@@ -53,24 +50,10 @@ async function setup() {
   buche.height = 50;
   buche.x = app.view.width / 2 + 100;
   buche.y = app.view.height / 2;
-  //goalkeeper.interactive = true;
-  //goalkeeper.position.set(app.screen.width / 2, 100);
   
   app.stage.addChild(goal);
-  //app.stage.addChild(buche);
-  
-  //app.ticker.add(gameObstacle);
 
 
-  /*function gameObstacle() {
-
-    if (ball.y === buche.y ) {
-        ball.y += 10;
-    }
-  }*/
-
-
-  // Create the trees
     
   // Create the goal animation
   const texture = [Texture.from('assets/but.jpeg'),  Texture.from('assets/goal.png')];
@@ -87,7 +70,7 @@ async function setup() {
 
   // Create a new sprite for the arrow
   const arrow = Sprite.from('assets/realarrowblue.png');
-  arrow.anchor.set(0.5);
+  arrow.anchor.set(0, 0.5);
   arrow.width = 50;
   arrow.height = 50;
   arrow.rotation = -Math.PI / 2;
@@ -117,31 +100,6 @@ async function setup() {
 
   const [button, firstScreen] = showFirstScreen(ball);
 
-
-  // Listen for frame updates
-  // app.ticker.add(() => {
-  //   if (ball.isAirborne) {
-  //     ball.y -= 10;
-  //     if (ball.y < 0) {
-  //       ball.isAirborne = false;
-  //       if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
-  //         // Ball has reached the goal
-  //         console.log("reaching goal");
-  //         ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
-  //         ball.isAirborne = false;
-  //         goalAnimation.visible = true;
-  //         goalAnimation.play();
-  //         setTimeout(() => {
-  //           console.log("timetout");
-  //           goalAnimation.visible = false;
-            
-  //         }, 3000); 
-  //       } else {
-  //         ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
-  //       }
-  //     }
-  //   }
-  // });
   
   function onBallClick() {
     isBallAirborne = true;
@@ -223,10 +181,12 @@ async function setup() {
           ball.vx = 0;
           ball.vy = 0;
           isBallAirborne = false;
+          arrow.visible = true;
+
         };
       } else {
         // Show the "lose" message if the ball has stopped moving
-        if (Math.abs(ball.vy) < 1 && Math.abs(ball.vx) < 1) {
+        if (Math.abs(ball.vy) < 0.1 && Math.abs(ball.vx) < 0.1) {
           lose.visible = true;
           lose.interactive = true;
           lose.buttonMode = true;
