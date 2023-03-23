@@ -77,7 +77,14 @@ async function setup() {
   obstacle.width = 100;
   obstacle.height = 100;
   obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5);
+  let velocity = 5;
   app.stage.addChild(obstacle);
+  app.ticker.add(() => {
+    obstacle.x += velocity;
+    if(obstacle.x < 0 || obstacle.x > app.screen.width) {
+      velocity = -velocity;
+    }
+  })
 
   //  variables to track the arrow direction and angle
   let arrowDirection = 1;
