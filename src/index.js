@@ -5,6 +5,7 @@ import "@pixi/gif";
 import { loseScreen, winScreen } from "./resultScreen.js";
 import "../css/ui.css";
 import "../css/style.css";
+import "../css/screens.css";
 
 async function setup() {
   // Create the field
@@ -54,19 +55,6 @@ async function setup() {
   buche.y = app.view.height / 2;
   
   app.stage.addChild(goal);
-
-  //app.ticker.add(gameObstacle);
-
-  /*function gameObstacle() {
-
-    if (ball.y === buche.y ) {
-        ball.y += 10;
-    }
-  }*/
-
-  // Create the trees
-
-  // Create the goal animation
 
   // Create a new sprite for the arrow
   const arrow = Sprite.from('assets/realarrowblue.png');

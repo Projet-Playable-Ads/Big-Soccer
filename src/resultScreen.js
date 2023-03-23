@@ -1,11 +1,15 @@
 import { Sprite } from "pixi.js";
 import { screenShake } from "./animate.js";
+import { downloadButton } from "./ui.js";
 import { app, losingSound, winningSound } from "./utils.js";
 
 const goalAnimation = Sprite.from("assets/GOAL.png");
 goalAnimation.visible = false;
-// const lose = Sprite.from("assets/lose.jpeg");
-// lose.visible = false;
+
+const loser = document.createElement("div");
+loser.classList.add("loser-screen");
+loser.innerText = "You suck !"
+document.body.appendChild(loser);
 
 /**
  *
@@ -33,18 +37,10 @@ export function winScreen(callback) {
  */
 
 export function loseScreen(callback) {
+  loser.style.display = "block";
     losingSound.play();
     callback();
-//   lose.visible = true;
-//   lose.anchor.set(0.5);
-//   lose.width = 400;
-//   lose.height = 200;
-//   lose.position.set(app.screen.width / 2, app.screen.height / 2);
-//   lose.interactive = true;
-//   app.stage.addChild(lose);
-//   lose.onpointerdown = () => {
-//     console.log("pointerdown");
-//     lose.visible = false;
-//     callback();
-//   };
+    setTimeout(() => {
+      loser.style.display = "none"
+    }, 1000);
 }
