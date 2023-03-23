@@ -1,17 +1,10 @@
 import { Texture, Sprite, AnimatedSprite, Assets } from 'pixi.js';
-import { createUI } from "./ui.js";
-import { firstScreen } from './firstScreen.js';
-import { app, BALL_INITIAL_POSITION } from './utils.js';
+import { showFirstScreen } from './firstScreen.js';
+import { app, container, BALL_INITIAL_POSITION } from './utils.js';
 import '@pixi/gif'
 
 
-const container = document.body.appendChild(document.createElement("div"));
-container.classList.add("container");
-
-container.appendChild(app.view);
-
 async function setup() {
-
   // Create the field
   const terrain = Sprite.from('assets/terrain_snow.png');
   terrain.anchor.set(0.5)
@@ -30,7 +23,7 @@ async function setup() {
   ball.anchor.set(0.5);
   ball.width = 50;
   ball.height = 50;
-  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.6);
+  ball.position.set(app.renderer.width / 2, app.renderer.height * 0.7);
   ball.eventMode = 'static';
   ball.buttonMode = true;
   ball.speed = 10
@@ -115,13 +108,14 @@ async function setup() {
   obstacle.anchor.set(0.5);
   obstacle.width = 100;
   obstacle.height = 100;
-  obstacle.position.set(app.screen.width / 2, app.screen.height - 200);
+  obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5);
   app.stage.addChild(obstacle);
 
   //  variables to track the arrow direction and angle
   let arrowDirection = 1;
   let arrowAngle = arrow.rotation;
-  const beginningScreen = firstScreen(ball);
+
+  const [button, firstScreen] = showFirstScreen(ball);
 
 
   // Listen for frame updates
@@ -151,7 +145,8 @@ async function setup() {
   
   function onBallClick() {
     isBallAirborne = true;
-    beginningScreen.style.display = "none";
+    firstScreen.style.display = "none";
+    button.style.display = "none";
     hand_guide.visible = false;
     const goalPosition = goal.position;
     const ballPosition = ball.position;
@@ -266,10 +261,10 @@ async function setup() {
 
 setup();
 
+
 window.addEventListener('resize', () => {
-    app.renderer.resize(window.innerWidth, window.innerHeight);
+    app.renderer.resize(container.clientWidth, container.clientHeight);
 })
 
-container.append(...createUI());
 
 document.body.append(container);
