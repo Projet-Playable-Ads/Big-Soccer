@@ -1,4 +1,4 @@
-import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
+import { Texture, Sprite, AnimatedSprite, Assets, TextStyle } from "pixi.js";
 import { showFirstScreen } from "./firstScreen.js";
 import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
 import "@pixi/gif";
@@ -46,17 +46,45 @@ async function setup() {
   goal.anchor.set(0.5);
   goal.width = 200;
   goal.height = 100;
-  goal.position.set(app.screen.width / 2, 50);
+  goal.position.set(app.screen.width / 2, 100);
 
   const buche = Sprite.from('assets/buche.png');
   // Create the obstacle
-  buche.anchor.set(0.5);
+  //buche.anchor.set(0.5);
   buche.width = 50;
   buche.height = 50;
-  buche.x = app.view.width / 2 + 100;
+  buche.x = 0;
   buche.y = app.view.height / 2;
+  //buche.vx = 0;
   
   app.stage.addChild(goal);
+  app.stage.addChild(buche);
+
+  /*app.ticker.add(moveBuche())
+
+  function moveBuche() {
+    let i;
+    for (i = 0; i < app.screen.width; i++) {
+        buche.x += buche.vx;
+        buche.vx += 0.8
+    }
+  }*/
+
+
+  // Create the trees
+    
+  // Create the goal animation
+  const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
+  const goalAnimation = new AnimatedSprite(texture);
+
+  goalAnimation.anchor.set(0.5);
+  goalAnimation.width = 200;
+  goalAnimation.height = 100;
+  goalAnimation.position.set(app.renderer.width / 2, 100);
+  goalAnimation.animationSpeed = 0.1;
+  goalAnimation.visible = false;
+  goalAnimation.loop = false;
+  app.stage.addChild(goalAnimation);
 
   // Create a new sprite for the arrow
   const arrow = Sprite.from('assets/realarrowblue.png');
