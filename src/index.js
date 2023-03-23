@@ -78,10 +78,18 @@ async function setup() {
   // Create a new sprite for the obstacle
   const obstacle = Sprite.from("assets/wood.png");
   obstacle.anchor.set(0.5);
+
   obstacle.width = 75;
   obstacle.height = 45;
   obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5 - 45);
+  let velocity = 5;
   app.stage.addChild(obstacle);
+  app.ticker.add(() => {
+    obstacle.x += velocity;
+    if(obstacle.x < 0 || obstacle.x > app.screen.width) {
+      velocity = -velocity;
+    }
+  })
 
   window.addEventListener('resize', () => {
     obstacle.scale.set(Math.min(window.innerWidth / obstacle.width, window.innerHeight / obstacle.height));
