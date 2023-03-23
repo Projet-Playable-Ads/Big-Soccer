@@ -20,13 +20,5 @@ const downloadButton = () => {
     return buttonContainer;
 }
 
-const createUI = () => {
-    const elements = [
-        downloadButton(),
-    ]
-
-    return elements;
-};
-
-export { createUI };
+export { downloadButton };
 

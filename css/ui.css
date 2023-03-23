@@ -9,13 +9,13 @@ body {
     font-family: "Trickster";
 }
 
-.btn-container {
+ .btn-container {
     position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-}
+} 
 
 #download-button {
     display: flex;
