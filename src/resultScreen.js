@@ -63,7 +63,7 @@ export async function loadEndScreen() {
     await new Promise(resolve => {
       setTimeout(resolve, 1000)
     })
-    if(score == 2) winningEnd()
+    if(score == 3) winningEnd()
     else losingEnd()
 }
 

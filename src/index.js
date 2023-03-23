@@ -15,7 +15,7 @@ async function setup() {
   console.log(attemps);
   // Create the field
   app.stage.sortableChildren = true;
-  const terrain = Sprite.from("assets/terrain_snow.png");
+  const terrain = Sprite.from("assets/terrainbasestart.png");
   terrain.anchor.set(0.5);
   terrain.width = app.screen.width;
   terrain.height = app.screen.height;
@@ -49,18 +49,11 @@ async function setup() {
   const confetto = await addConfetti();
 
   // Create the obstacle
-  const goal = Sprite.from("assets/cage_snow.png");
-  const buche = Sprite.from("assets/buche.png");
+  const goal = Sprite.from("assets/cage.png");
   goal.anchor.set(0.5);
   goal.width = 200;
   goal.height = 100;
   goal.position.set(app.screen.width / 2, 50);
-
-  buche.anchor.set(0.5);
-  buche.width = 50;
-  buche.height = 50;
-  buche.x = app.view.width / 2 + 100;
-  buche.y = app.view.height / 2;
   
   app.stage.addChild(goal);
 
@@ -109,10 +102,6 @@ async function setup() {
     isBallAirborne = true;
     firstScreen.style.display = "none";
     hand_guide.visible = false;
-    const goalPosition = goal.position;
-    const ballPosition = ball.position;
-    // const dx = goalPosition.x - ballPosition.x;
-    // const dy = goalPosition.y - ballPosition.y;
     const angle = arrowAngle;
     const speed = 10;
     ball.vx = speed * Math.cos(angle);
@@ -124,9 +113,15 @@ async function setup() {
 
   function update() {
     // Update the arrow position and rotation
+    if(attemps == 0) {
+      demo();
+    }
+    if(attemps == 1) {
+      loadWinter();
+    }
     arrow.x = ball.x;
     arrow.y = ball.y - 50;
-    arrow.rotation += (arrowDirection * Math.PI) / 180;
+    if(arrow.visible) arrow.rotation += (arrowDirection * Math.PI) / 180;
     arrowAngle = arrow.rotation;
 
     // Reverse the arrow direction when it reaches the limits of its rotation
@@ -178,6 +173,7 @@ async function setup() {
         ball.x < goal.x + goal.width / 2
       ) {
         winScreen(gameStart, confetto);
+        if(attemps > 0) loadSpring();
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
@@ -188,6 +184,7 @@ async function setup() {
       }
 
       // Check if the ball collides with the obstacle
+      if(obstacle.visible) {
       const dxObstacle = obstacle.x - ball.x;
       const dyObstacle = obstacle.y - ball.y;
       const distanceObstacle = Math.sqrt(
@@ -201,13 +198,15 @@ async function setup() {
         ball.vy *= 0.99;
       }
     }
+    }
   }
 
   function gameStart() {
     attemps++;
-    if(attemps >= 2) {
+    if(attemps >= 3) {
       loadEndScreen();
       isBallAirborne = false;
+      obstacle.visible = false;
       return;
     }
     ball.x = app.screen.width / 2;
@@ -216,7 +215,23 @@ async function setup() {
     ball.vy = 0;
     isBallAirborne = false;
     arrow.visible = true;
+    obstacle.visible = true;
     ball.interactive = true;
+  }
+
+  function demo() {
+    arrow.visible = false;
+    obstacle.visible = false;
+  }
+
+  function loadWinter() {
+    terrain.texture = Texture.from("assets/terrain_snow.png")
+    goal.texture = Texture.from("assets/cage_snow.png");
+  }
+
+  function loadSpring() {
+    terrain.texture = Texture.from("assets/terrain_sakura.png");
+    goal.texture = Texture.from("assets/cage.png");
   }
 
   music.play();
