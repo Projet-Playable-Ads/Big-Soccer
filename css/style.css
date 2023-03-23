@@ -17,4 +17,8 @@
     animation-duration: 0.5s;
     transform-origin:50% 50%;
     animation-iteration-count: infinite;
-} 
+}
+
+.fireworks {
+    background: #101010;
+}

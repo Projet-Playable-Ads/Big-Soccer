@@ -74,8 +74,8 @@ async function setup() {
   // Create the trees
     
   // Create the goal animation
-  const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
-  const goalAnimation = new AnimatedSprite(texture);
+  //const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
+  //const goalAnimation = new AnimatedSprite(texture);
   //const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
   //const goalAnimation = new AnimatedSprite(texture);
   // Create a new sprite for the goal
