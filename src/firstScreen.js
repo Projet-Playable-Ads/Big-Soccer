@@ -1,5 +1,4 @@
 import { Sprite } from "pixi.js";
-import { downloadButton } from "./ui.js";
 
 /**
  *
@@ -22,8 +21,5 @@ function tapText(ball) {
 }
 
 export const showFirstScreen = (ball) => {
-  return [
-    document.body.appendChild(tapText(ball)),
-    document.body.appendChild(downloadButton()),
-  ];
+  return document.body.appendChild(tapText(ball))
 };

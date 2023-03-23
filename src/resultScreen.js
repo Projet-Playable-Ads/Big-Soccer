@@ -26,6 +26,7 @@ document.body.appendChild(loser);
  */
 
 export function winScreen(callback, confetto) {
+  score++;
   confetto.visible = true;
   goalAnimation.anchor.set(0.5);
   goalAnimation.width = 300;
@@ -58,17 +59,34 @@ export function loseScreen(callback) {
   }, 1000);
 }
 
-export function loadEndScreen() {
-  console.log("this load");
-    winningEnd()
+export async function loadEndScreen() {
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000)
+    })
+    if(score == 2) winningEnd()
+    else losingEnd()
 }
 
 function losingEnd() {
-  
+  console.log("You lose");
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "lose-btn-container";
+  const button = document.createElement("a");
+  button.classList.add("btn", "lose-btn");
+  button.setAttribute("href", "https://www.google.com");
+  button.innerText = "Tap to retry !";
+
+  buttonContainer.appendChild(button);
+
+  const text = document.createElement("div");
+  text.innerText = "You suck ! ";
+  text.className = "lose-title";
+
+  document.body.append(buttonContainer, text);
+
 }
  
 async function winningEnd() {
-  console.log("winning");
   const presentAsset = Sprite.from("assets/cadeau.png");
   const star = await Assets.load("assets/star.gif");
   const positions = [
@@ -85,10 +103,25 @@ async function winningEnd() {
     app.stage.addChild(clone);
     clone.zIndex = 2;
   }
-  presentAsset.width = 300
-  presentAsset.height = 300
+
   presentAsset.anchor.set(0.5);
+  presentAsset.scale.set(0.7)
   presentAsset.position.set(app.screen.width /2, app.screen.height / 2);
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("win-btn-container");
+  const button = document.createElement("a");
+  button.classList.add("btn", "win-btn");
+  button.setAttribute("href", "https://www.google.com")
+  button.innerText = "Tap to get a new ball !"
+
+  const text = document.createElement("div")
+  text.innerText = "Amazing!!!"
+  text.className = "win-title";
+  document.body.append(text)
+
+  buttonContainer.append(button);
+  document.body.append(buttonContainer);
 
   app.stage.addChild(presentAsset);
 }

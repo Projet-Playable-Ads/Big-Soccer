@@ -1,4 +1,5 @@
 import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
+import { downloadButton } from "./ui.js"
 import { showFirstScreen } from "./firstScreen.js";
 import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
 import "@pixi/gif";
@@ -75,18 +76,23 @@ async function setup() {
   // Create a new sprite for the "lose" message
 
   // Create a new sprite for the obstacle
-  const obstacle = Sprite.from("assets/obstacle.png");
+  const obstacle = Sprite.from("assets/wood.png");
   obstacle.anchor.set(0.5);
-  obstacle.width = 100;
-  obstacle.height = 100;
-  obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5);
+  obstacle.width = 75;
+  obstacle.height = 45;
+  obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5 - 45);
   app.stage.addChild(obstacle);
+
+  window.addEventListener('resize', () => {
+    obstacle.scale.set(Math.min(window.innerWidth / obstacle.width, window.innerHeight / obstacle.height));
+  })
 
   //  variables to track the arrow direction and angle
   let arrowDirection = 1;
   let arrowAngle = arrow.rotation;
 
-  const [button, firstScreen] = showFirstScreen(ball);
+  const firstScreen = showFirstScreen(ball);
+  document.body.append(downloadButton())
 
   
   function onBallClick() {
@@ -94,7 +100,6 @@ async function setup() {
     ball.interactive = false;
     isBallAirborne = true;
     firstScreen.style.display = "none";
-    button.style.display = "none";
     hand_guide.visible = false;
     const goalPosition = goal.position;
     const ballPosition = ball.position;
@@ -192,7 +197,6 @@ async function setup() {
 
   function gameStart() {
     attemps++;
-    console.log(attemps);
     if(attemps >= 2) {
       loadEndScreen();
       isBallAirborne = false;
