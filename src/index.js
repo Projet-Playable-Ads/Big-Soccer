@@ -1,4 +1,4 @@
-import { Texture, Sprite, AnimatedSprite, Assets, TextStyle } from "pixi.js";
+import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
 import { showFirstScreen } from "./firstScreen.js";
 import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
 import "@pixi/gif";
@@ -6,6 +6,7 @@ import { loseScreen, winScreen } from "./resultScreen.js";
 import "../css/ui.css";
 import "../css/style.css";
 import "../css/screens.css";
+
 
 async function setup() {
   // Create the field
@@ -46,54 +47,15 @@ async function setup() {
   goal.anchor.set(0.5);
   goal.width = 200;
   goal.height = 100;
-  goal.position.set(app.screen.width / 2, 100);
+  goal.position.set(app.screen.width / 2, 50);
 
-  //const buche = Sprite.from('assets/buche.png');
-  // Create the obstacle
-  //buche.anchor.set(0.5);
-  //buche.width = 50;
-  //buche.height = 50;
-  //buche.x = 0;
-  //buche.y = app.view.height / 2;
-  //buche.vx = 0;
+  buche.anchor.set(0.5);
+  buche.width = 50;
+  buche.height = 50;
+  buche.x = app.view.width / 2 + 100;
+  buche.y = app.view.height / 2;
   
   app.stage.addChild(goal);
-  //app.stage.addChild(buche);
-
-  /*app.ticker.add(moveBuche())
-
-  function moveBuche() {
-    let i;
-    for (i = 0; i < app.screen.width; i++) {
-        buche.x += buche.vx;
-        buche.vx += 0.8
-    }
-  }*/
-
-
-  // Create the trees
-    
-  // Create the goal animation
-  //const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
-  //const goalAnimation = new AnimatedSprite(texture);
-  //const texture = [Texture.from('assets/goal_animation_boom.png'),  Texture.from('assets/goal.png')];
-  //const goalAnimation = new AnimatedSprite(texture);
-  // Create a new sprite for the goal
-  goal.anchor.set(0.5, 1);
-  goal.width = 200;
-  goal.height = 100;
-  goal.position.set(app.screen.width / 2, app.screen.height - 500);
-  app.stage.addChild(goal);
-
-  /*goalAnimation.anchor.set(0.5);
-  goalAnimation.width = 200;
-  goalAnimation.height = 100;
-  goalAnimation.position.set(app.renderer.width / 2, 100);
-  goalAnimation.animationSpeed = 0.1;
-  goalAnimation.visible = false;
-  goalAnimation.loop = false;
-  app.stage.addChild(goalAnimation);
-  app.stage.addChild(goalAnimation);*/
 
   // Create a new sprite for the arrow
   const arrow = Sprite.from('assets/realarrowblue.png');
@@ -107,44 +69,19 @@ async function setup() {
   // Create a new sprite for the "lose" message
 
   // Create a new sprite for the obstacle
-  /*const obstacle = Sprite.from("assets/obstacle.png");
+  const obstacle = Sprite.from("assets/obstacle.png");
   obstacle.anchor.set(0.5);
   obstacle.width = 100;
   obstacle.height = 100;
   obstacle.position.set(app.screen.width / 2, app.screen.height * 0.5);
   app.stage.addChild(obstacle);
-  obstacle.position.set(app.screen.width / 2, app.screen.height - 300);
-  app.stage.addChild(obstacle);*/
 
   //  variables to track the arrow direction and angle
   let arrowDirection = 1;
   let arrowAngle = arrow.rotation;
 
+  const [button, firstScreen] = showFirstScreen(ball);
 
-  // Listen for frame updates
-  // app.ticker.add(() => {
-  //   if (ball.isAirborne) {
-  //     ball.y -= 10;
-  //     if (ball.y < 0) {
-  //       ball.isAirborne = false;
-  //       if (ball.x > goal.x - goal.width / 2 && ball.x < goal.x + goal.width / 2) {
-  //         // Ball has reached the goal
-  //         console.log("reaching goal");
-  //         ball.position.set(app.renderer.width / 2, app.renderer.height * .75);
-  //         ball.isAirborne = false;
-  //         //goalAnimation.visible = true;
-  //         //goalAnimation.play();
-  //         /*setTimeout(() => {
-  //           console.log("timetout");
-  //           goalAnimation.visible = false;
-            
-  //        }, 3000); */
-  //      } else {
-  //        ball.position.set(app.renderer.width / 2, app.renderer.height - 100);
-  //      }
-  //    }
-  //  }
-  //});
   
   function onBallClick() {
     shootSound.play();
@@ -232,7 +169,7 @@ async function setup() {
       }
 
       // Check if the ball collides with the obstacle
-      /*const dxObstacle = obstacle.x - ball.x;
+      const dxObstacle = obstacle.x - ball.x;
       const dyObstacle = obstacle.y - ball.y;
       const distanceObstacle = Math.sqrt(
         dxObstacle * dxObstacle + dyObstacle * dyObstacle
@@ -243,7 +180,7 @@ async function setup() {
         ball.vy = -ball.vy * 0.8;
         ball.vx *= 0.99;
         ball.vy *= 0.99;
-      } */
+      }
     }
   }
 

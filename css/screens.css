@@ -8,3 +8,14 @@
     display: none;
     top: 45%;
 }
+
+.winner-screen {
+    position: absolute;
+    font-family: inherit;
+    transform: rotate(-15deg);
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    display: none;
+    top: 75%;
+}
