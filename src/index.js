@@ -2,13 +2,16 @@ import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
 import { showFirstScreen } from "./firstScreen.js";
 import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
 import "@pixi/gif";
-import { loseScreen, winScreen } from "./resultScreen.js";
+import { loadEndScreen, loseScreen, winScreen } from "./resultScreen.js";
 import "../css/ui.css";
 import "../css/style.css";
 import "../css/screens.css";
 import { addConfetti } from "./animate.js";
 
+let attemps = 0;
+
 async function setup() {
+  console.log(attemps);
   // Create the field
   app.stage.sortableChildren = true;
   const terrain = Sprite.from("assets/terrain_snow.png");
@@ -188,6 +191,13 @@ async function setup() {
   }
 
   function gameStart() {
+    attemps++;
+    console.log(attemps);
+    if(attemps >= 2) {
+      loadEndScreen();
+      isBallAirborne = false;
+      return;
+    }
     ball.x = app.screen.width / 2;
     ball.y = BALL_INITIAL_POSITION;
     ball.vx = 0;
