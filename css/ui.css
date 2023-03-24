@@ -7,20 +7,25 @@
 body {
     margin: 0;
     font-family: "Trickster";
+    background: black;
+    max-width: min(100vw, 800px);
+    max-height: 100vh;
 }
 
  .btn-container {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: center;
+    max-width: 100%;
 }
 
 .win-btn-container, .lose-btn-container {
     position: absolute;
     top: 70%;
     width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -34,6 +39,11 @@ body {
     padding: 8px;
     border-radius: 25px;
     position: relative;
+}
+
+.lose-btn, .win-btn {
+    max-width: calc(100% - 100px);
+    text-align: center;
 }
 
 .lose-btn::after, .win-btn::after {

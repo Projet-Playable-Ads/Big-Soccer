@@ -68,7 +68,13 @@ export async function loadEndScreen() {
 }
 
 function losingEnd() {
-  console.log("You lose");
+  const smiley = Sprite.from("assets/smiley.png");
+  smiley.position.set(app.screen.width * 0.15, app.screen.height * 0.15);
+  smiley.height = 125;
+  smiley.width = 150;
+
+  app.stage.addChild(smiley);
+
   const buttonContainer = document.createElement("div");
   buttonContainer.className = "lose-btn-container";
   const button = document.createElement("a");
