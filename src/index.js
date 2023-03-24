@@ -203,7 +203,7 @@ async function setup() {
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
-        if (Math.abs(ball.vy) < 0.05 && Math.abs(ball.vx) < 0.05) {
+        if (Math.abs(ball.vy) < 0.5 && Math.abs(ball.vx) < 0.5) {
           loseScreen(gameStart);
           return;
         }
@@ -218,8 +218,8 @@ async function setup() {
       );
       if (distanceObstacle < ball.width / 2 + obstacle.width / 2) {
         // Reverse the ball's velocity and apply friction
-        ball.vx = -ball.vx * 0.8;
-        ball.vy = -ball.vy * 0.8;
+        ball.vx = -ball.vx * 1.2;
+        ball.vy = -ball.vy * 1.2;
         ball.vx *= 0.99;
         ball.vy *= 0.99;
       }

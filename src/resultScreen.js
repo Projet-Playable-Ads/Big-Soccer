@@ -79,7 +79,7 @@ function losingEnd() {
   buttonContainer.className = "lose-btn-container";
   const button = document.createElement("a");
   button.classList.add("btn", "lose-btn");
-  button.setAttribute("href", "https://www.google.com");
+  button.setAttribute("href", "https://apps.apple.com/us/app/crazy-kick-fun-football-game/id1469889140");
   button.innerText = "Tap to retry !";
 
   buttonContainer.appendChild(button);
@@ -118,7 +118,7 @@ async function winningEnd() {
   buttonContainer.classList.add("win-btn-container");
   const button = document.createElement("a");
   button.classList.add("btn", "win-btn");
-  button.setAttribute("href", "https://www.google.com")
+  button.setAttribute("href", "https://apps.apple.com/us/app/crazy-kick-fun-football-game/id1469889140")
   button.innerText = "Tap to get a new ball !"
 
   const text = document.createElement("div")
