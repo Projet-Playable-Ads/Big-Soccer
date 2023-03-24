@@ -12,7 +12,6 @@ import { addConfetti } from "./animate.js";
 let attemps = 0;
 
 async function setup() {
-  console.log(attemps);
   // Create the field
   app.stage.sortableChildren = true;
   const terrain = Sprite.from("assets/terrainbasestart.png");
@@ -35,6 +34,12 @@ async function setup() {
   branche2.position.set(app.renderer.width - branche2.width, BRANCHE2_INITIAL_POSITION);
   app.stage.addChild(branche2);
   branche2.visible = false;
+
+  const blackScreen = Sprite.from("assets/blackscreen.png")
+  blackScreen.width = app.screen.width;
+  blackScreen.height = app.screen.height;
+  blackScreen.visible = true;
+  app.stage.addChild(blackScreen);
 
   // Create the ball
   const ball = Sprite.from("assets/ball.png");
@@ -111,6 +116,8 @@ async function setup() {
 
   
   function onBallClick() {
+    blackScreen.visible = false;
+    blackScreen.zIndex = -1;
     shootSound.play();
     ball.interactive = false;
     isBallAirborne = true;
@@ -196,7 +203,7 @@ async function setup() {
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
-        if (Math.abs(ball.vy) < 1 && Math.abs(ball.vx) < 1) {
+        if (Math.abs(ball.vy) < 0.05 && Math.abs(ball.vx) < 0.05) {
           loseScreen(gameStart);
           return;
         }
@@ -264,17 +271,23 @@ async function setup() {
   }
 
   function demo() {
+    blackScreen.visible = true;
     arrow.visible = false;
     obstacle.visible = false;
   }
 
-  function loadWinter() {
+  async function loadWinter() {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    })
     terrain.texture = Texture.from("assets/terrain_snow.png")
     goal.texture = Texture.from("assets/cage_snow.png");
   }
 
-  function loadSpring() {
-    console.log("test")
+  async function loadSpring() {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    })
     branche1.visible = true;
     branche2.visible = true;
     obstacle.visible = false;
