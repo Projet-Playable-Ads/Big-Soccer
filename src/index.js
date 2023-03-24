@@ -103,7 +103,7 @@ async function setup() {
     firstScreen.style.display = "none";
     hand_guide.visible = false;
     const angle = arrowAngle;
-    const speed = 10;
+    const speed = 20;
     ball.vx = speed * Math.cos(angle);
     ball.vy = speed * Math.sin(angle);
     arrow.visible = false;
