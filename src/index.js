@@ -140,6 +140,12 @@ async function setup() {
     if(attemps == 1) {
       loadWinter();
     }
+    if(attemps >= 3) {
+      loadEndScreen();
+      isBallAirborne = false;
+      obstacle.visible = false;
+      return;
+    }
     arrow.x = ball.x;
     arrow.y = ball.y - 50;
     if(arrow.visible) arrow.rotation += (arrowDirection * Math.PI) / 180;
@@ -199,7 +205,7 @@ async function setup() {
         ball.x < goal.x + (goal.width / 2) - 10
       ) {
         winScreen(gameStart, confetto);
-        if(score > 1) loadSpring();
+        if(score > 1 && attemps < 3) loadSpring();
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
@@ -253,12 +259,6 @@ async function setup() {
 
   function gameStart() {
     attemps++;
-    if(attemps >= 3) {
-      loadEndScreen();
-      isBallAirborne = false;
-      obstacle.visible = false;
-      return;
-    }
     ball.x = app.screen.width / 2;
     ball.y = BALL_INITIAL_POSITION;
     ball.vx = 0;
