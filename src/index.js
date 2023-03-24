@@ -154,6 +154,11 @@ async function setup() {
         ball.x = app.screen.width;
       }
 
+      // Bounce the ball off the goal on left and right
+      if((ball.x <= goal.x + goal.width && ball.y <= goal.y )|| (ball.x <= goal.x && ball.y <= goal.y)) {
+        ball.vx = -ball.vx * 0.8;
+      }
+
       // Bounce the ball off the top of the screen
       if (ball.y < 0) {
         ball.vy = -ball.vy * 0.6;
@@ -169,8 +174,8 @@ async function setup() {
       // Check if the ball has reached the goal and trigger the goal animation
       if (
         ball.y < goal.y &&
-        ball.x > goal.x - goal.width / 2 &&
-        ball.x < goal.x + goal.width / 2
+        ball.x > goal.x - (goal.width / 2) - 10 &&
+        ball.x < goal.x + (goal.width / 2) - 10
       ) {
         winScreen(gameStart, confetto);
         if(attemps > 0) loadSpring();
