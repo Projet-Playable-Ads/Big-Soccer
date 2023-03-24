@@ -10,6 +10,11 @@ container.appendChild(app.view);
 
 export const BALL_INITIAL_POSITION = app.screen.height * 0.65;
 
+export const BRANCHE1_INITIAL_POSITION = app.screen.height * 0.43;
+
+export const BRANCHE2_INITIAL_POSITION = app.screen.height * 0.2;
+
+
 export const winningSound = Sound.from("assets/WiTrueJingle.mp3");
 
 export const losingSound = Sound.from("assets/USUCKLOL.mp3");

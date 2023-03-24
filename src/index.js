@@ -1,9 +1,9 @@
 import { Texture, Sprite, AnimatedSprite, Assets } from "pixi.js";
 import { downloadButton } from "./ui.js"
 import { showFirstScreen } from "./firstScreen.js";
-import { app, container, BALL_INITIAL_POSITION, music, shootSound } from "./utils.js";
+import { app, container, BALL_INITIAL_POSITION, music, shootSound, BRANCHE1_INITIAL_POSITION, BRANCHE2_INITIAL_POSITION } from "./utils.js";
 import "@pixi/gif";
-import { loadEndScreen, loseScreen, winScreen } from "./resultScreen.js";
+import { loadEndScreen, loseScreen, winScreen, score } from "./resultScreen.js";
 import "../css/ui.css";
 import "../css/style.css";
 import "../css/screens.css";
@@ -21,6 +21,20 @@ async function setup() {
   terrain.height = app.screen.height;
   terrain.position.set(app.screen.width / 2, app.screen.height / 2);
   app.stage.addChild(terrain);
+
+  const branche1 = Sprite.from("assets/newsakura.png");
+  branche1.width = 180;
+  branche1.height = 100;
+  branche1.position.set(0, BRANCHE1_INITIAL_POSITION);
+  app.stage.addChild(branche1);
+  branche1.visible = false;
+
+  const branche2 = Sprite.from("assets/sakurapenchee2.png");
+  branche2.width = 180;
+  branche2.height = 100;
+  branche2.position.set(app.renderer.width - branche2.width, BRANCHE2_INITIAL_POSITION);
+  app.stage.addChild(branche2);
+  branche2.visible = false;
 
   // Create the ball
   const ball = Sprite.from("assets/ball.png");
@@ -173,7 +187,7 @@ async function setup() {
         ball.x < goal.x + goal.width / 2
       ) {
         winScreen(gameStart, confetto);
-        if(attemps > 0) loadSpring();
+        if(score > 1) loadSpring();
         return;
       } else {
         // Show the "lose" message if the ball has stopped moving
@@ -197,7 +211,32 @@ async function setup() {
         ball.vx *= 0.99;
         ball.vy *= 0.99;
       }
-    }
+      }
+
+      // Check if the ball collides with the obstacle
+      if (branche1.visible && branche2.visible) {
+        const dxBranche1 = branche1.x - ball.x;
+        const dyBranche1 = branche1.y - ball.y;
+        const dxBranche2 = branche2.x - ball.x;
+        const dyBranche2 = branche2.y - ball.y;
+
+        const distanceBranche1 = Math.sqrt(
+          dxBranche1 * dxBranche1 + dyBranche1 * dyBranche1
+        );
+
+        const distanceBranche2 = Math.sqrt(
+          dxBranche2 * dxBranche2 + dyBranche2 * dyBranche2
+        );
+
+        if ((distanceBranche1 < ball.width / 2 + branche1.width / 2 || distanceBranche2 < ball.width / 2 + branche2.width / 2) 
+        || (distanceBranche1 < ball.height / 2 + branche1.height / 2 || distanceBranche2 < ball.height / 2 + branche2.height / 2)) {
+          // Reverse the ball's velocity and apply friction
+          ball.vx = -ball.vx * 0.8;
+          ball.vy = -ball.vy * 0.8;
+          ball.vx *= 0.99;
+          ball.vy *= 0.99;
+        }
+      }
     }
   }
 
@@ -230,6 +269,10 @@ async function setup() {
   }
 
   function loadSpring() {
+    console.log("test")
+    branche1.visible = true;
+    branche2.visible = true;
+    obstacle.visible = false;
     terrain.texture = Texture.from("assets/terrain_sakura.png");
     goal.texture = Texture.from("assets/cage.png");
   }

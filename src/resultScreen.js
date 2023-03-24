@@ -2,7 +2,7 @@ import { Assets, Container, Sprite } from "pixi.js";
 import { screenShake } from "./animate.js";
 import { app, losingSound, winningSound } from "./utils.js";
 
-let score = 0;
+export let score = 0;
 
 const goalAnimation = Sprite.from("assets/GOAL.png");
 goalAnimation.visible = false;
