@@ -23,14 +23,14 @@ async function setup() {
   app.stage.addChild(terrain);
 
   const branche1 = Sprite.from("assets/newsakura.png");
-  branche1.width = 180;
+  branche1.width = 170;
   branche1.height = 100;
   branche1.position.set(0, BRANCHE1_INITIAL_POSITION);
   app.stage.addChild(branche1);
   branche1.visible = false;
 
   const branche2 = Sprite.from("assets/sakurapenchee2.png");
-  branche2.width = 180;
+  branche2.width = 170;
   branche2.height = 100;
   branche2.position.set(app.renderer.width - branche2.width, BRANCHE2_INITIAL_POSITION);
   app.stage.addChild(branche2);
@@ -233,8 +233,7 @@ async function setup() {
           dxBranche2 * dxBranche2 + dyBranche2 * dyBranche2
         );
 
-        if ((distanceBranche1 < ball.width / 2 + branche1.width / 2 || distanceBranche2 < ball.width / 2 + branche2.width / 2) 
-        || (distanceBranche1 < ball.height / 2 + branche1.height / 2 || distanceBranche2 < ball.height / 2 + branche2.height / 2)) {
+        if (distanceBranche1 < ball.width / 2 + branche1.width / 2 || distanceBranche2 < ball.width / 2 + branche2.width / 2) {
           // Reverse the ball's velocity and apply friction
           ball.vx = -ball.vx * 0.8;
           ball.vy = -ball.vy * 0.8;
