@@ -142,6 +142,7 @@ async function setup() {
     }
     if(attemps >= 3) {
       loadEndScreen();
+      arrow.visible = false;
       isBallAirborne = false;
       obstacle.visible = false;
       return;
