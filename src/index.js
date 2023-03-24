@@ -234,10 +234,10 @@ async function setup() {
 
       // Check if the ball collides with the obstacle
       if (branche1.visible && branche2.visible) {
-        const dxBranche1 = branche1.x - ball.x;
-        const dyBranche1 = branche1.y - ball.y;
-        const dxBranche2 = branche2.x - ball.x;
-        const dyBranche2 = branche2.y - ball.y;
+        const dxBranche1 = (branche1.x - 20) - ball.x;
+        const dyBranche1 = (branche1.y - 20) - ball.y;
+        const dxBranche2 = (branche2.x - 20) - ball.x;
+        const dyBranche2 = (branche2.y - 20) - ball.y;
 
         const distanceBranche1 = Math.sqrt(
           dxBranche1 * dxBranche1 + dyBranche1 * dyBranche1
@@ -247,7 +247,10 @@ async function setup() {
           dxBranche2 * dxBranche2 + dyBranche2 * dyBranche2
         );
 
-        if (distanceBranche1 < ball.width / 2 + branche1.width / 2 || distanceBranche2 < ball.width / 2 + branche2.width / 2) {
+        console.log(distanceBranche2);
+
+        if ((distanceBranche1 < ball.width / 2 + branche1.width / 2 && distanceBranche1 < ball.height / 2 + branche1.height / 2) 
+        || (distanceBranche2 < ball.width / 2 + branche2.width / 2 && distanceBranche2 < ball.height / 2 + branche2.height / 2)){
           // Reverse the ball's velocity and apply friction
           ball.vx = -ball.vx * 0.8;
           ball.vy = -ball.vy * 0.8;
